@@ -1,6 +1,6 @@
 package hu.petrik.bankiszolgaltatasok;
 
-public class Tulajdonos {
+public final class Tulajdonos {
 
     private String nev;
 
