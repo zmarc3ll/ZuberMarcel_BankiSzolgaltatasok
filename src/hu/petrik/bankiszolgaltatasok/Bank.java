@@ -11,6 +11,15 @@ public class Bank {
     }
 
     public Szamla szamlanyitas(Tulajdonos tulajdonos, int hitelKeret) {
+        Szamla szamla;
+        if (hitelKeret > 0) {
+            szamla = new HitelSzamla(tulajdonos,hitelKeret);
+
+        } else {
+            szamla = new MegtakaritasiSzamla(tulajdonos);
+        }
+        this.szamlaLista.add(szamla);
+        return szamla;
     }
 
     public long getOsszegyenleg(Tulajdonos tulajdonos) {
@@ -36,11 +45,10 @@ public class Bank {
 
     public long getOsszhitelkeret() {
         long ossz = 0;
-        for (Szamla s : this.szamlaLista) {
-            if (s.getClass().equals(MegtakaritasiSzamla.class)) {
-                ossz = ossz + s.getAktualisEgyenleg();
+        for (Szamla szamla : this.szamlaLista) {
+            if (szamla.getClass().equals(HitelSzamla.class)) {
+                ossz = ossz + ((HitelSzamla) szamla).getHitelKeret();
             }
-
         }
         return ossz;
     }
